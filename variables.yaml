@@ -3,3 +3,8 @@ REDIS_HOST: redis.devopsprocloud.in
 CATALOGUE_HOST: catalogue.devopsprocloud.in 
 USER_HOST: user.devopsprocloud.in 
 CART_HOST: cart.devopsprocloud.in
+MYSQL_HOST: mysql.devopsprocloud.in 
+SHIPPING_HOST: shipping.devopsprocloud.in 
+RABBITMQ_HOST: rabbitmq.devopsprocloud.in 
+PAYMENT_HOST: payment.devopsprocloud.in 
+DISPATCH_HOST: dispatch.devopsprocloud.in 
