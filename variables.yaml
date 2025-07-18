@@ -1,0 +1,5 @@
+MONGODB_HOST: mongodb.devopsprocloud.in
+REDIS_HOST: redis.devopsprocloud.in
+CATALOGUE_HOST: catalogue.devopsprocloud.in 
+USER_HOST: user.devopsprocloud.in 
+CART_HOST: cart.devopsprocloud.in
