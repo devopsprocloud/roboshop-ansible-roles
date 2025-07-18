@@ -7,36 +7,32 @@
   ansible.builtin.command: dnf install -y mongodb-mongosh
 
 - name: Get the Catalogue count
-  ansible.builtin.command:  mongosh --host mongodb.devopsprocloud.in --quiet --eval 'db =db.getSiblingDB("catalogue");db.products.estimatedDocumentCount()'
+  ansible.builtin.command:  mongosh --host {{MONGODB_HOST}} --quiet --eval 'db =db.getSiblingDB("catalogue");db.products.estimatedDocumentCount()'
   register: catalogue_count 
   when:  component == "catalogue"
 
-- name: Print the Catalogue Count output 
-  ansible.builtin.debug:
-    msg: "Output is {{catalogue_count}}"
+# - name: Print the Catalogue Count output 
+#   ansible.builtin.debug:
+#     msg: "Output is {{catalogue_count}}"
 
 - name: "Loading Catalogue data into Mongodb"
-  ansible.builtin.shell: "mongosh --host mongodb.devopsprocloud.in </app/schema/{{component}}.js"
-  when: 
-    - catalogue_count.stdout == "0"
-    - component == "catalogue"
+  ansible.builtin.shell: "mongosh --host {{MONGODB_HOST}} </app/schema/{{component}}.js"
+  when: catalogue_count.stdout == "0" and component == "catalogue"
   #when: output.stdout != "0"
   ignore_errors: true
 
-- name: get the User count
-  ansible.builtin.command:  mongosh --host mongodb.devopsprocloud.in --quiet --eval 'db =db.getSiblingDB("users");db.users.estimatedDocumentCount()'
+- name: Get the User count
+  ansible.builtin.command:  mongosh --host {{MONGODB_HOST}} --quiet --eval 'db =db.getSiblingDB("users");db.users.estimatedDocumentCount()'
   register: user_count
   when: component == "user"
 
-- name: Print the User Count output 
-  ansible.builtin.debug:
-    msg: "Output is {{user_count}}"
+# - name: Print the User Count output 
+#   ansible.builtin.debug:
+#     msg: "Output is {{user_count}}"
 
 - name: "Loading User data into Mongodb" 
-  ansible.builtin.shell: mongosh --host mongodb.devopsprocloud.in </app/schema/{{component}}.js
-  when: 
-    - user_count.stdout == "0"
-    - component == "user"
+  ansible.builtin.shell: mongosh --host {{MONGODB_HOST}} </app/schema/{{component}}.js
+  when: user_count.stdout == "0" and component == "user"
   # when: output.stdout != "0"
   ignore_errors: true
 
