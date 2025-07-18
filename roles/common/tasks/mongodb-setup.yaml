@@ -15,7 +15,7 @@
 #   ansible.builtin.debug:
 #     msg: "Output is {{catalogue_count}}"
 
-- name: "Loading Catalogue data into Mongodb"
+- name: Loading Catalogue data into Mongodb
   ansible.builtin.shell: "mongosh --host {{MONGODB_HOST}} </app/schema/{{component}}.js"
   when: catalogue_count.stdout == "0" and component == "catalogue"
   #when: output.stdout != "0"
@@ -30,8 +30,8 @@
 #   ansible.builtin.debug:
 #     msg: "Output is {{user_count}}"
 
-- name: "Loading User data into Mongodb" 
-  ansible.builtin.shell: mongosh --host {{MONGODB_HOST}} </app/schema/{{component}}.js
+- name: Loading User data into Mongodb
+  ansible.builtin.shell: "mongosh --host {{MONGODB_HOST}} </app/schema/{{component}}.js"
   when: user_count.stdout == "0" and component == "user"
   # when: output.stdout != "0"
   #ignore_errors: true
