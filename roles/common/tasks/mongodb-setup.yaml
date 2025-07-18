@@ -9,12 +9,12 @@
 - name: Get the {{component}} count
   ansible.builtin.command:  mongosh --host mongodb.devopsprocloud.in --quiet --eval 'db =db.getSiblingDB("catalogue");db.products.estimatedDocumentCount()'
   register: output 
-  when: catalogue ="{{componet}}"
+  when: catalogue = component
 
 - name: get the products count
   ansible.builtin.command:  mongosh --host mongodb.devopsprocloud.in --quiet --eval 'db =db.getSiblingDB("users");db.users.estimatedDocumentCount()'
   register: output
-  when: user = "{{component}}"
+  when: user = component
 
 - name: Print the output 
   ansible.builtin.debug:
@@ -24,14 +24,14 @@
   ansible.builtin.shell: "mongosh --host mongodb.devopsprocloud.in </app/schema/{{component}}.js"
   when: 
     - output.stdout == "0"
-    - catalogue == {{component}} 
+    - catalogue == component 
   #when: output.stdout != "0"
 
 - name: "Loading {{component}} data into Mongodb" 
   ansible.builtin.shell: mongosh --host mongodb.devopsprocloud.in </app/schema/user.js
   when: 
     - output.stdout == "0"
-    - catalogue == {{component}} 
+    - user == component
   # when: output.stdout != "0"
 
 
