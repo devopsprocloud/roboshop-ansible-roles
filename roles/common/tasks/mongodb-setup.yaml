@@ -16,7 +16,7 @@
   register: user_count
   when: component == "user"
 
-- name: Print the output 
+- name: Print the Catalogue Count output 
   ansible.builtin.debug:
     msg: "Output is {{catalogue_count}}"
 
@@ -26,6 +26,10 @@
     - catalogue_count.stdout == "0"
     - component == "catalogue"
   #when: output.stdout != "0"
+
+- name: Print the User Count output 
+  ansible.builtin.debug:
+    msg: "Output is {{user_count}}"
 
 - name: "Loading {{component}} data into Mongodb" 
   ansible.builtin.shell: mongosh --host mongodb.devopsprocloud.in </app/schema/user.js
