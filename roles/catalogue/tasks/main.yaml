@@ -11,4 +11,9 @@
 - name: Configuring mongodb-setup
   ansible.builtin.import_role:
     name: common 
-    tasks_from: mongodb-setup.yaml
+    tasks_from: mongodb-setup.yaml 
+
+- name: Configuring systemd-setup
+  ansible.builtin.import_role:
+    name: common 
+    tasks_from: systemd-setup.yaml 
