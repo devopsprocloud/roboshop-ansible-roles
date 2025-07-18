@@ -2,3 +2,13 @@
   ansible.builtin.import_role:
     name: common 
     tasks_from: app-setup.yaml
+
+- name: Configuring nodejs-setup
+  ansible.builtin.import_role:
+    name: common 
+    tasks_from: nodejs-setup.yaml
+
+- name: Configuring mongodb-setup
+  ansible.builtin.import_role:
+    name: common 
+    tasks_from: mongodb-setup.yaml

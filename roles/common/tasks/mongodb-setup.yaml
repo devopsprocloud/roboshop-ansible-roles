@@ -1,0 +1,37 @@
+- name: Copying MongoDB repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Installing mondodb shell 
+  ansible.builtin.command: dnf install -y mongodb-mongosh
+
+- name: Get the {{component}} count
+  ansible.builtin.command:  mongosh --host mongodb.devopsprocloud.in --quiet --eval 'db =db.getSiblingDB("catalogue");db.products.estimatedDocumentCount()'
+  register: output 
+  when: catalogue ="{{componet}}"
+
+- name: get the products count
+  ansible.builtin.command:  mongosh --host mongodb.devopsprocloud.in --quiet --eval 'db =db.getSiblingDB("users");db.users.estimatedDocumentCount()'
+  register: output
+  when: user = "{{component}}"
+
+- name: Print the output 
+  ansible.builtin.debug:
+    msg: "Output is {{output}}"
+
+- name: "Loading {{component}} data into Mongodb"
+  ansible.builtin.shell: "mongosh --host mongodb.devopsprocloud.in </app/schema/{{component}}.js"
+  when: 
+    - output.stdout == "0"
+    - catalogue == {{component}} 
+  #when: output.stdout != "0"
+
+- name: "Loading {{component}} data into Mongodb" 
+  ansible.builtin.shell: mongosh --host mongodb.devopsprocloud.in </app/schema/user.js
+  when: 
+    - output.stdout == "0"
+    - catalogue == {{component}} 
+  # when: output.stdout != "0"
+
+
