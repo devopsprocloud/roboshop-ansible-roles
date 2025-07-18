@@ -9,12 +9,12 @@
 - name: Get the {{component}} count
   ansible.builtin.command:  mongosh --host mongodb.devopsprocloud.in --quiet --eval 'db =db.getSiblingDB("catalogue");db.products.estimatedDocumentCount()'
   register: output 
-  when: catalogue = component
+  when: catalogue == component
 
 - name: get the products count
   ansible.builtin.command:  mongosh --host mongodb.devopsprocloud.in --quiet --eval 'db =db.getSiblingDB("users");db.users.estimatedDocumentCount()'
   register: output
-  when: user = component
+  when: user == component
 
 - name: Print the output 
   ansible.builtin.debug:
