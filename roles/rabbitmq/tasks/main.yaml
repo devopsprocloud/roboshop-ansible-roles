@@ -16,7 +16,7 @@
     state: started 
 
 - name: Creating Roboshop credentials
-  ansible.builtin.shell: rabbitmqctl add_user roboshop roboshop123
+  ansible.builtin.shell: "rabbitmqctl add_user {{rq_user}} {{rq_password}}"
 
 - name: Setting up the permissions for Roboshop User 
   ansible.builtin.shell: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
